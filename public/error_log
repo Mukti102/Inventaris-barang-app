@@ -1,0 +1,1 @@
+[24-Jun-2025 11:12:56 Asia/Jakarta] PHP Fatal error:  Trait "Carbon\Carbon\Carbon" not found in /home/dtqcghkc/invetarisapp.genera.my.id/app/Http/Controllers/RekapController.php on line 15
