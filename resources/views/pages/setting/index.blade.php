@@ -29,7 +29,7 @@
                 :value="old('settings.email', $settings['email'] ?? '')" />
 
              <x-form.input label="Alamat" id="address" name="settings[address]"
-                :value="old('settings.phone', $settings['phone'] ?? '')" />
+                :value="old('settings.phone', $settings['address'] ?? '')" />
              <x-form.input label="Nomor Telephone" id="phone" name="settings[phone]"
                 :value="old('settings.phone', $settings['phone'] ?? '')" />
              <x-form.input label="Kepala" id="kepala" name="settings[kepala]"
