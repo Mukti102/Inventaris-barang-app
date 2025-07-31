@@ -6,6 +6,7 @@ use App\Http\Controllers\DistributionController;
 use App\Http\Controllers\FinancialReportController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\LaporanPengeluaranController;
 use App\Http\Controllers\MonthlySummariesController;
 use App\Http\Controllers\PaguAnggaranController;
 use App\Http\Controllers\ProcrumentController;
@@ -26,7 +27,7 @@ Route::get('/tentang', [GuestController::class, 'about'])->name('tentang');
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('category',CategoryController::class);
+    Route::resource('category', CategoryController::class);
     Route::resource('invetarisBarang', ItemController::class);
     Route::get('/invetarisBarang-print', [ItemController::class, 'print'])->name('invetarisBarang.print');
     Route::resource('penyediaan', ProcrumentController::class);
@@ -42,8 +43,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/financial-report-print', [FinancialReportController::class, 'print'])->name('financial-report.print');
     Route::get('/monthly-summaries', [MonthlySummariesController::class, 'index'])->name('laporan-bulanan');
     Route::get('/monthly-summaries/print', [MonthlySummariesController::class, 'print'])->name('laporan-bulanan.print');
-    Route::resource('pagu-anggaran',PaguAnggaranController::class);
-    Route::get('/pagu-print',[PaguAnggaranController::class,'print'])->name('pagu.print');
+    Route::resource('pagu-anggaran', PaguAnggaranController::class);
+    Route::get('/pagu-print', [PaguAnggaranController::class, 'print'])->name('pagu.print');
 
     // rekap 
     Route::get('laporan', [RekapController::class, 'index'])->name('laporan.index');
@@ -57,7 +58,19 @@ Route::middleware('auth')->group(function () {
     Route::get('laporan/permintaan/print', [RekapController::class, 'permintaanPrint'])->name('laporan.permintaan.print');
     Route::get('laporan/keuangan', [RekapController::class, 'keuangan'])->name('laporan.keuangan');
     Route::get('laporan/keuangan/print', [RekapController::class, 'keuanganPrint'])->name('laporan.keuangan.print');
-    Route::get('laporan/pagu/print',[RekapController::class,'pagu'])->name('laporan.pagu');
+    Route::get('laporan/pagu/print', [RekapController::class, 'pagu'])->name('laporan.pagu');
+
+
+
+    // ====================== Laporan Anggaran =============================================
+
+    Route::get('/anggaran-laporan', [LaporanPengeluaranController::class, 'index'])->name('anggaran.index');
+    Route::get('/anggaran-laporan/per-tahun', [LaporanPengeluaranController::class, 'perYear'])->name('anggaran.peryear');
+    Route::get('/anggaran-laporan-perkategory', [CategoryController::class, 'report'])->name('anggaran.percategory.report');
+    Route::get('/anggaran-percategory/{id}', [LaporanPengeluaranController::class, 'categoryReport'])->name('anggaran.category.report');
+    Route::get('/anggaran-laporan-bulanan',[LaporanPengeluaranController::class,'reportPerMonth'])->name('anggaran.permonth');
+    Route::get('/anggaran-triwulan',[LaporanPengeluaranController::class,'triwulan'])->name('anggaran.triwulan.index');
+    Route::get('/anggaran-triwulan/{id}',[LaporanPengeluaranController::class,'triwulanPrint'])->name('triwulan.print');
 
     Route::get('/setting', [SettingController::class, 'index'])->name('setting.index');
     Route::post('/setting', [SettingController::class, 'store'])->name('setting.store');

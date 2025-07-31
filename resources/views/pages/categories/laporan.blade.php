@@ -21,9 +21,7 @@
     <div class="card mb-4">
         <div class="card-header d-flex justify-content-between">
             <h3 class="card-title m-0">Data Kategori Barang</h3>
-            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#createCategoryModal">
-                <i class="fa fa-plus mr-1"></i> Tambah
-            </button>
+           
         </div>
         <div class="card-body p-2">
             <table class="table table-striped">
@@ -43,28 +41,16 @@
                             <td>{{ $item->keterangan }}</td>
                             <td class="text-center">
                                 <div class="d-flex gap-1 justify-content-center">
-                                    <a href="{{ route('category.show', $item->id) }}" class="btn btn-sm btn-info">
-                                        <i class="bi bi-eye"></i>
+                                    <a href="{{ route('anggaran.category.report', $item->id) }}" class="btn btn-sm btn-info">
+                                        <i class="fa fa-print"></i>
                                     </a>
-                                    <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
-                                        data-bs-target="#editCategoryModal-{{ $item->id }}">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </button>
-                                    <form action="{{ route('category.destroy', $item->id) }}" method="POST"
-                                        data-confirm-delete>
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger">
-                                            <i class="bi bi-trash3-fill"></i>
-                                        </button>
-                                    </form>
                                 </div>
                             </td>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            @if ($categories->count() !== 0)
+
+                        @endforeach
+                    </tbody>
+                </table>
                 {{-- Modal Edit --}}
                 <div class="modal fade " id="editCategoryModal-{{ $item->id }}" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog ">
@@ -78,8 +64,7 @@
                             <div class="modal-body">
                                 <div class="mb-3">
                                     <label>Nama</label>
-                                    <input type="text" name="name" class="form-control" value="{{ $item->name }}"
-                                        required>
+                                    <input type="text" name="name" class="form-control" value="{{ $item->name }}" required>
                                 </div>
                                 <div class="mb-3">
                                     <label>Keterangan</label>
@@ -93,7 +78,6 @@
                         </form>
                     </div>
                 </div>
-            @endif
         </div>
     </div>
 

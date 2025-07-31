@@ -16,7 +16,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view('pages.categories.index',compact('categories'));
+        return view('pages.categories.index', compact('categories'));
     }
 
     /**
@@ -31,22 +31,21 @@ class CategoryController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {   
+    {
         $validated = $request->validate([
             'name' => 'required',
             'keterangan' => 'required'
         ]);
 
-        try{
+        try {
             Category::create($validated);
-            Alert::success("Success","Berhasil Di Tambahkan");
+            Alert::success("Success", "Berhasil Di Tambahkan");
             return back();
-        }catch(Exception $e){
-            Log::info("error Create category",['message' => $e->getMessage()]);
-            Alert::error('Error',"Gagal Menambahkan");
+        } catch (Exception $e) {
+            Log::info("error Create category", ['message' => $e->getMessage()]);
+            Alert::error('Error', "Gagal Menambahkan");
             return back();
         }
-        
     }
 
     /**
@@ -55,6 +54,12 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         //
+    }
+
+    public function report()
+    {
+        $categories = Category::all();
+        return view('pages.categories.laporan', compact('categories'));
     }
 
     /**
@@ -75,13 +80,13 @@ class CategoryController extends Controller
             'keterangan' => 'required'
         ]);
 
-        try{
+        try {
             $category->update($validated);
-            Alert::success("Success","Berhasil Di Update");
+            Alert::success("Success", "Berhasil Di Update");
             return back();
-        }catch(Exception $e){
-            Log::info('Error',['message' => $e->getMessage()]);
-            Alert::error("Error","Gagal Di Update");
+        } catch (Exception $e) {
+            Log::info('Error', ['message' => $e->getMessage()]);
+            Alert::error("Error", "Gagal Di Update");
             return back();
         }
     }
@@ -91,6 +96,11 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        try {
+            $category->delete();
+            return redirect()->back()->with('success', 'Berhasil dihapus');
+        } catch (Exception $e) {
+            return back()->with('error', 'gagal');
+        }
     }
 }
