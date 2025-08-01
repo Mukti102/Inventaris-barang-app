@@ -36,7 +36,7 @@ class LaporanPengeluaranController extends Controller
             $realisasi = $semester1 + $semester2;
 
             return [
-                'kode_rekening' => $pagu->kode_rekening ?? '5.0.8.019',
+                'kode_rekening' => $category->no_rekening ?? '5.0.8.019',
                 'dpa' => $nilaiPagu,
                 'kegiatan' => optional($category)->name ?? '-',
                 'pagu' => $nilaiPagu,
@@ -59,7 +59,7 @@ class LaporanPengeluaranController extends Controller
     {
         $category = Category::findOrFail($id);
 
-        $procruments = Procrument::with('item')->whereHas('item', function ($q) use ($id) {
+        $procruments = Procrument::with('item.category')->whereHas('item', function ($q) use ($id) {
             $q->where('category_id', $id);
         })->get();
 
@@ -74,6 +74,7 @@ class LaporanPengeluaranController extends Controller
             $sisaPercentage = $nilaiPagu > 0 ? ($sisa / $nilaiPagu) * 100 : 0;
 
             return [
+                'no_rekening' => $item->category,
                 'pagu' => $nilaiPagu,
                 'kegiatan' => $proc ?? '-',
                 'realisasi' => $realisasi,
@@ -132,7 +133,7 @@ class LaporanPengeluaranController extends Controller
             }
 
             return [
-                'kode_rekening' => $pagu->kode_rekening ?? '5.0.8.019',
+                'kode_rekening' => $pagu->category->no_rekening ?? '5.0.8.019',
                 'dpa' => $nilaiPagu,
                 'kegiatan' => optional($category)->name ?? '-',
                 'bulan' => $months
@@ -249,7 +250,7 @@ class LaporanPengeluaranController extends Controller
             }
 
             return array_merge([
-                'kode_rekening' => $pagu->kode_rekening ?? '5.0.8.019',
+                'kode_rekening' => $pagu->category->no_rekening ?? '5.0.8.019',
                 'dpa' => $nilaiPagu,
                 'kegiatan' => optional($category)->name ?? '-',
             ], $bulan);

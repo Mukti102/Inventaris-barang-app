@@ -34,6 +34,7 @@ class CategoryController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required',
+            'no_rekening' => 'required',
             'keterangan' => 'required'
         ]);
 
@@ -77,6 +78,7 @@ class CategoryController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required',
+            'no_rekening' => 'required',
             'keterangan' => 'required'
         ]);
 

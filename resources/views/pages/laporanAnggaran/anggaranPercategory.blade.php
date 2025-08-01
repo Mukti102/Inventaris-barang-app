@@ -27,7 +27,7 @@
             @foreach ($result as $index => $row)
                 <tr>
                     <td style="text-align: center;">{{ $index + 1 }}</td>
-                    <td>{{ $row['pagu']->kode_rekening ?? '-' }}</td>
+                    <td>{{ $row['no_rekening']->no_rekening ?? '-' }}</td>
 
                     <td>{{ $row['kegiatan']->item->nama_barang ?? '-' }}</td>
                     <td>Rp.{{ number_format($row['pagu']->nilai ?? 0, 0, ',', '.') }}</td>

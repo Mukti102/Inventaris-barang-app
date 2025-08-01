@@ -30,6 +30,7 @@
                 <thead>
                     <tr>
                         <th style="width: 10px">#</th>
+                        <th>No Rekening</th>
                         <th>Nama</th>
                         <th>Keterangan</th>
                         <th style="width: 120px;" class="text-center">Aksi</th>
@@ -39,6 +40,7 @@
                     @foreach ($categories as $item)
                         <tr class="align-middle">
                             <td>{{ $loop->iteration }}</td>
+                            <td>{{ $item->no_rekening ?? '-' }}</td>
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->keterangan }}</td>
                             <td class="text-center">
@@ -77,7 +79,12 @@
                             </div>
                             <div class="modal-body">
                                 <div class="mb-3">
-                                    <label>Nama</label>
+                                    <label>No Rekening</label>
+                                    <input type="text" name="no_rekening" class="form-control" value="{{ $item->no_rekening }}"
+                                        required>
+                                </div>
+                                <div class="mb-3">
+                                    <label>No Rekening</label>
                                     <input type="text" name="name" class="form-control" value="{{ $item->name }}"
                                         required>
                                 </div>
@@ -107,6 +114,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
+                    <div class="mb-3">
+                        <label>No Rekening</label>
+                        <input type="text" name="no_rekening" class="form-control" required>
+                    </div>
                     <div class="mb-3">
                         <label>Nama</label>
                         <input type="text" name="name" class="form-control" required>
